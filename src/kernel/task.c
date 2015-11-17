@@ -122,6 +122,7 @@ void create_task(char* filename,unsigned short task_num){
 }
 
 void switchto(unsigned long seg_seg);
+void exit_task(unsigned long task_num);
 
 unsigned long select_new_task(void){
 	gloreti=0;

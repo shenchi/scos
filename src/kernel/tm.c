@@ -55,7 +55,7 @@ void set_cur_kbuf(unsigned long addr){
 }
 
 unsigned long read_file_for_ring3(unsigned long filenameaddr,unsigned long addr){
-	if(current==0)return;
+	if(current==0)return 0;
 	unsigned long baseaddr=((current-1)*64+32)*1024*1024;
 	unsigned long tmpret;
 	tmpret=read_file((char*)(baseaddr+filenameaddr),baseaddr+addr);
@@ -63,7 +63,7 @@ unsigned long read_file_for_ring3(unsigned long filenameaddr,unsigned long addr)
 }
 
 unsigned long create_file_for_ring3(unsigned long filenameaddr,unsigned long addr,unsigned long size){
-	if(current==0)return;
+	if(current==0)return 0;
 	unsigned long baseaddr=((current-1)*64+32)*1024*1024;
 	unsigned long tmpret;
 	tmpret=create_file((char*)(baseaddr+filenameaddr), baseaddr+addr, size);
@@ -71,7 +71,7 @@ unsigned long create_file_for_ring3(unsigned long filenameaddr,unsigned long add
 }
 
 unsigned long create_dir_for_ring3(unsigned long filenameaddr,unsigned long addr,unsigned long size){
-	if(current==0)return;
+	if(current==0)return 0;
 	unsigned long baseaddr=((current-1)*64+32)*1024*1024;
 	unsigned long tmpret;
 	tmpret=create_dir((char*)(baseaddr+filenameaddr), baseaddr+addr, size);
@@ -79,7 +79,7 @@ unsigned long create_dir_for_ring3(unsigned long filenameaddr,unsigned long addr
 }
 
 unsigned long delete_file_for_ring3(unsigned long filenameaddr){
-	if(current==0)return;
+	if(current==0)return 0;
 	unsigned long baseaddr=((current-1)*64+32)*1024*1024;
 	unsigned long tmpret;
 	tmpret=delete_file((char*)(baseaddr+filenameaddr));
@@ -87,7 +87,7 @@ unsigned long delete_file_for_ring3(unsigned long filenameaddr){
 }
 
 unsigned long change_dir_for_ring3(unsigned long filenameaddr){
-	if(current==0)return;
+	if(current==0)return 0;
 	unsigned long baseaddr=((current-1)*64+32)*1024*1024;
 	unsigned long tmpret;
 	tmpret=goto_dic((unsigned char*)(baseaddr+filenameaddr));

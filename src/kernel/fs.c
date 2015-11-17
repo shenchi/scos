@@ -22,6 +22,8 @@ void update_fat(void);
 unsigned short get_free_cul(void);
 
 void dir(unsigned char *ret_buf);
+void lba2chs(unsigned short lba);
+void TEXT(char* charptr,char* str);
 
 unsigned char* floppy_buffer;
 unsigned char *filebuf0,*filebuf1,*filebuf2;

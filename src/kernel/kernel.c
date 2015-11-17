@@ -22,6 +22,8 @@ void sti(void);
 void cli(void);
 void sys_call(unsigned long param1,unsigned long param2,unsigned long param3,unsigned long param4);
 void key_intr(void);
+void show_welcome(void);
+void load_shell(void);
 
 int kernel_init(void){
 	init_interrupt();
@@ -47,7 +49,7 @@ int kernel_init(void){
 	return 0;
 }
 
-void show_welcome(){
+void show_welcome(void){
 	setcharattr(0x1f);
 	cls();
 	putbitstr("SCOS",12,11,12);

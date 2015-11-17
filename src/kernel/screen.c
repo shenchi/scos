@@ -68,6 +68,11 @@ void setcursor(unsigned short x,unsigned short y){
 	refreshcursor();
 }
 
+void cr(void){
+	setcursor(1,cury);
+	return;
+}
+
 void bs(void){
 	if(cury>1){
 		if(curx>1){
@@ -93,11 +98,6 @@ void inccurx(void){
 	}else{
 		cr();lf();
 	}
-}
-
-void cr(void){
-	setcursor(1,cury);
-	return;
 }
 
 void setcharattr(unsigned char attr){
