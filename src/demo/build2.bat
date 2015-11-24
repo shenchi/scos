@@ -1,1 +1,0 @@
-nasm demo.asm -o demo.bin

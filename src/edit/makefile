@@ -1,14 +1,27 @@
-edit.bin : edit.o common.o screen.o keyboard.o
-	ld -Tt 0 --oformat binary -o edit.bin edit.o common.o screen.o keyboard.o
+CCFLAGS=-w -ffreestanding -nostdlib -nostartfiles -nodefaultlibs -m32
 
-edit.o : edit.c
-	gcc -ffreestanding -nostdlib -nostartfiles -nodefaultlibs -c -o edit.o edit.c
+ifdef OSX_TOOLSET
+LDFLAGS=-preload -arch i386 -segaddr __TEXT 0 -U start
+else
+LDFLAGS=-Ttext 0 --oformat binary
+endif
 
-common.o : common.c
-	gcc -ffreestanding -nostdlib -nostartfiles -nodefaultlibs -c -o common.o common.c
+TARGET=$(BUILD_PATH)/edit.bin
+OBJS=$(addprefix $(BUILD_PATH)/edit/, edit.o common.o screen.o keyboard.o)
 
-screen.o : screen.c
-	gcc -ffreestanding -nostdlib -nostartfiles -nodefaultlibs -c -o screen.o screen.c
+all: $(TARGET)
 
-keyboard.o : keyboard.c
-	gcc -ffreestanding -nostdlib -nostartfiles -nodefaultlibs -c -o keyboard.o keyboard.c
+$(TARGET) : $(OBJS)
+	ld $(LDFLAGS) -o $@ $^
+
+$(BUILD_PATH)/edit/edit.o : edit.c
+	gcc $(CCFLAGS) -c -o $@ edit.c
+
+$(BUILD_PATH)/edit/common.o : common.c
+	gcc $(CCFLAGS) -c -o $@ common.c
+
+$(BUILD_PATH)/edit/screen.o : screen.c
+	gcc $(CCFLAGS) -c -o $@ screen.c
+
+$(BUILD_PATH)/edit/keyboard.o : keyboard.c
+	gcc $(CCFLAGS) -c -o $@ keyboard.c
